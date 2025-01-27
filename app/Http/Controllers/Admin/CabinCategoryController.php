@@ -27,8 +27,8 @@ class CabinCategoryController extends Controller
         $validated = $request->validate([
             'vendor_code' => 'required|string|max:50',
             'title' => 'required|string|max:255',
-            'type' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'type' => 'required|in:Inside,Ocean view,Balcony,Suite',
+            'description' => 'nullable',
             'photos' => 'nullable|string',
             'ordering' => 'integer|nullable',
             'state' => 'integer|nullable'
@@ -36,7 +36,7 @@ class CabinCategoryController extends Controller
 
         $cabin->update($validated);
 
-        return redirect()->route('ships.edit', $cabin->ship_id)
+        return redirect()->route('cabins.index', $cabin->ship_id)
             ->with('success', 'Категория каюты обновлена');
     }
 }

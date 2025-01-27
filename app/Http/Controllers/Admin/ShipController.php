@@ -35,7 +35,7 @@ class ShipController extends Controller
 
         $ship->update($validated);
 
-        return redirect()->route('ships.edit', $ship)
+        return redirect()->route('ships.index', $ship)
             ->with('success', 'Корабль обновлен');
     }
 

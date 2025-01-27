@@ -61,7 +61,13 @@
 
                         <div class="form-group">
                             <label for="type">Тип категории</label>
-                            <input type="text" class="form-control @error('type') is-invalid @enderror" id="type" name="type" value="{{ old('type', $cabin->type) }}" required>
+                            <select class="form-control @error('type') is-invalid @enderror" id="type" name="type" required>
+                                <option value="">Выберите тип</option>
+                                <option value="Inside" {{ old('type', $cabin->type) == 'Inside' ? 'selected' : '' }}>Inside</option>
+                                <option value="Ocean view" {{ old('type', $cabin->type) == 'Ocean view' ? 'selected' : '' }}>Ocean view</option>
+                                <option value="Balcony" {{ old('type', $cabin->type) == 'Balcony' ? 'selected' : '' }}>Balcony</option>
+                                <option value="Suite" {{ old('type', $cabin->type) == 'Suite' ? 'selected' : '' }}>Suite</option>
+                            </select>
                             @error('type')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -69,7 +75,7 @@
 
                         <div class="form-group">
                             <label for="description">Описание</label>
-                            <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description">{{ old('description', $cabin->description) }}</textarea>
+                            <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="10">{!! old('description', $cabin->description) !!}</textarea>
                             @error('description')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -94,8 +100,8 @@
                         <div class="form-group">
                             <label for="state">Состояние</label>
                             <select class="form-control @error('state') is-invalid @enderror" id="state" name="state">
-                                <option value="1" {{ $cabin->state == 1 ? 'selected' : '' }}>Активно</option>
-                                <option value="0" {{ $cabin->state == 0 ? 'selected' : '' }}>Неактивно</option>
+                                <option value="1" {{ old('state', $cabin->state) == 1 ? 'selected' : '' }}>Активно</option>
+                                <option value="0" {{ old('state', $cabin->state) == 0 ? 'selected' : '' }}>Неактивно</option>
                             </select>
                             @error('state')
                                 <div class="invalid-feedback">{{ $message }}</div>
