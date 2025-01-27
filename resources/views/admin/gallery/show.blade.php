@@ -24,7 +24,11 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body text-center">
-                            <img src="{{ $image->url }}" alt="{{ $image->title }}" class="img-thumbnail mb-3" style="max-width: 500px; height: auto;">
+                        <img
+                            src="{{ (filter_var($image->url, FILTER_VALIDATE_URL)) ? $image->url : asset('storage/' . $image->url) }}"
+                            alt="{{ $image->title }}"
+                            class="img-thumbnail"
+                            style="max-width: 150px;">
                             <p><strong>Название:</strong> {{ $image->title }}</p>
                             <form action="{{ route('gallery.destroy', $image) }}" method="POST" class="d-inline-block">
                                 @csrf

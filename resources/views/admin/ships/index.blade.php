@@ -35,9 +35,8 @@
                                     <tr>
                                         <td>{{ $ship->title }}</td>
                                         <td>
-                                            <div class="btn-group">
-                                                <a href="{{ route('ships.edit', $ship) }}" class="btn btn-warning btn-sm">Редактировать</a>
-                                            </div>
+                                            <a href="{{ route('ships.show', $ship) }}" class="btn btn-primary btn-sm">Просмотр</a>
+                                            <a href="{{ route('ships.edit', $ship) }}" class="btn btn-warning btn-sm">Редактировать</a>
                                         </td>
                                     </tr>
                                 @endforeach

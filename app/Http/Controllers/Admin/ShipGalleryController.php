@@ -18,7 +18,12 @@ class ShipGalleryController extends Controller
     public function create()
     {
         $ships = Ship::all();
-        return view('admin.gallery.create', compact('ships'));
+
+        $maxOrdering = ShipGallery::where('ship_id', $ships->first()->id)->max('ordering');
+
+        $defaultOrdering = $maxOrdering + 1;
+
+        return view('admin.gallery.create', compact('ships', 'defaultOrdering'));
     }
 
     public function store(Request $request)

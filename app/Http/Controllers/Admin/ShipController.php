@@ -25,14 +25,25 @@ class ShipController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'spec' => 'nullable|string',
-            'description' => 'nullable|string',
+            'spec' => 'nullable|array',
+            'spec.*.name' => 'required|string',
+            'spec.*.value' => 'required|string',
+            'description' => 'nullable',
             'ordering' => 'integer|nullable',
             'state' => 'integer|nullable'
         ]);
 
         $ship->update($validated);
-        return redirect()->route('ships.edit', $ship)->with('success', 'Корабль обновлен');
+
+        return redirect()->route('ships.edit', $ship)
+            ->with('success', 'Корабль обновлен');
+    }
+
+    public function show(Ship $ship)
+    {
+        $cabinCategories = $ship->cabinCategories;
+        $gallery = $ship->gallery;
+        return view('admin.ships.show', compact('ship', 'cabinCategories', 'gallery'));
     }
 }
 

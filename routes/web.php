@@ -19,6 +19,7 @@ Route::prefix('admin')->middleware('auth:sanctum')->group(function() {
     Route::prefix('/ships')->group(function() {
         Route::get('/', [ShipController::class, 'index'])->name('ships.index');
         Route::get('/{ship}/edit', [ShipController::class, 'edit'])->name('ships.edit');
+        Route::get('/ships/{ship}', [ShipController::class, 'show'])->name('ships.show');
         Route::put('/{ship}', [ShipController::class, 'update'])->name('ships.update');
     });
 

@@ -42,20 +42,22 @@
                                     <tr>
                                         <td>{{ $image->title }}</td>
                                         <td>
-                                            <img src="{{ $image->url }}" alt="{{ $image->title }}" class="img-thumbnail" style="max-width: 150px;">
+                                        <img
+                                            src="{{ (filter_var($image->url, FILTER_VALIDATE_URL)) ? $image->url : asset('storage/' . $image->url) }}"
+                                            alt="{{ $image->title }}"
+                                            class="img-thumbnail"
+                                            style="max-width: 150px;">
                                         </td>
                                         <td>
-                                            <div class="btn-group">
-                                                <a href="{{ route('gallery.show', $image) }}" class="btn btn-primary btn-sm">Просмотреть</a>
-                                                <form action="{{ route('gallery.destroy', $image) }}" method="POST" class="d-inline-block">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"
-                                                        onclick="return confirm('Вы уверены, что хотите удалить это изображение?')">
-                                                        Удалить
-                                                    </button>
-                                                </form>
-                                            </div>
+                                            <a href="{{ route('gallery.show', $image) }}" class="btn btn-primary btn-sm">Просмотреть</a>
+                                            <form action="{{ route('gallery.destroy', $image) }}" method="POST" class="d-inline-block">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm"
+                                                    onclick="return confirm('Вы уверены, что хотите удалить это изображение?')">
+                                                    Удалить
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

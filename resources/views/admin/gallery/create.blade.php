@@ -38,7 +38,7 @@
                             <label for="ship_id">Корабль</label>
                             <select name="ship_id" id="ship_id" class="form-control" required>
                                 @foreach($ships as $ship)
-                                    <option value="{{ $ship->id }}">{{ $ship->name }}</option>
+                                    <option value="{{ $ship->id }}">{{ $ship->title }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -55,7 +55,7 @@
 
                         <div class="form-group">
                             <label for="ordering">Порядок</label>
-                            <input type="number" name="ordering" id="ordering" class="form-control" value="{{ old('ordering') }}">
+                            <input type="number" name="ordering" id="ordering" class="form-control" value="{{ old('ordering', $defaultOrdering) }}">
                         </div>
 
                         <button type="submit" class="btn btn-success">Создать</button>

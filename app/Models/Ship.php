@@ -10,6 +10,19 @@ class Ship extends Model
     use HasFactory;
 
     protected $fillable = ['title', 'spec', 'description', 'ordering', 'state'];
+    protected $casts = [
+        'spec' => 'array'
+    ];
+
+    public function getDescriptionAttribute($value)
+    {
+        return html_entity_decode($value);
+    }
+
+    public function setDescriptionAttribute($value)
+    {
+        $this->attributes['description'] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+    }
 
     public function cabinCategories()
     {

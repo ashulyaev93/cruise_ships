@@ -38,11 +38,33 @@
                         </div>
                         <div class="form-group">
                             <label for="description">Описание</label>
-                            <textarea name="description" id="description" class="form-control">{{ old('description', $ship->description) }}</textarea>
+                            <textarea name="description" id="description" class="form-control" rows="10">{!! old('description', $ship->description) !!}</textarea>
                         </div>
                         <div class="form-group">
-                            <label for="spec">Спецификация</label>
-                            <textarea name="spec" id="spec" class="form-control">{{ old('spec', $ship->spec) }}</textarea>
+                            <label>Спецификация</label>
+                            <div id="spec-container">
+                                @if(old('spec', $ship->spec))
+                                    @foreach(old('spec', $ship->spec) as $index => $item)
+                                        <div class="row mb-2 spec-item">
+                                            <div class="col-5">
+                                                <input type="text" name="spec[{{$index}}][name]"
+                                                    class="form-control"
+                                                    value="{{ $item['name'] }}"
+                                                    placeholder="Название характеристики">
+                                            </div>
+                                            <div class="col-5">
+                                                <input type="text" name="spec[{{$index}}][value]"
+                                                    class="form-control"
+                                                    value="{{ $item['value'] }}"
+                                                    placeholder="Значение">
+                                            </div>
+                                            <div class="col-2">
+                                                <button type="button" class="btn btn-danger remove-spec">Удалить</button>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="ordering">Порядок сортировки</label>
@@ -64,3 +86,39 @@
     </section>
 </div>
 @endsection
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('spec-container');
+    const addButton = document.getElementById('add-spec');
+
+    addButton.addEventListener('click', function() {
+        const index = container.children.length;
+        const newRow = `
+            <div class="row mb-2 spec-item">
+                <div class="col-5">
+                    <input type="text" name="spec[${index}][name]"
+                           class="form-control"
+                           placeholder="Название характеристики">
+                </div>
+                <div class="col-5">
+                    <input type="text" name="spec[${index}][value]"
+                           class="form-control"
+                           placeholder="Значение">
+                </div>
+                <div class="col-2">
+                    <button type="button" class="btn btn-danger remove-spec">Удалить</button>
+                </div>
+            </div>
+        `;
+        container.insertAdjacentHTML('beforeend', newRow);
+    });
+
+    container.addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-spec')) {
+            e.target.closest('.spec-item').remove();
+        }
+    });
+});
+</script>
+@endpush

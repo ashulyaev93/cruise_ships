@@ -49,6 +49,9 @@ docker-compose exec -T app php artisan key:generate
 echo "🔄 Выполнение миграций..."
 docker-compose exec -T app php artisan migrate:refresh --force
 
+echo "🔗 Создание символической ссылки для хранения..."
+docker-compose exec -T app php artisan storage:link
+
 echo "💾 Импорт дампа базы данных..."
 docker cp pac-dump.sql cruise_mysql:/tmp/pac-dump.sql
 docker exec -i cruise_mysql bash -c "mysql -u cruise_user -psecret cruise_db < /tmp/pac-dump.sql 2>/dev/null"
