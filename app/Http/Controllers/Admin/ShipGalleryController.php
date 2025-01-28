@@ -55,6 +55,6 @@ class ShipGalleryController extends Controller
 
         $image->delete();
 
-        return redirect()->route('ships.edit', $ship)->with('success', 'Изображение удалено');
+        return redirect()->route('gallery.index', $ship)->with('success', 'Изображение удалено');
     }
 }
